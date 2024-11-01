@@ -1,0 +1,24 @@
+<head>
+  ...
+  <!-- External Scripts with defer -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js" defer></script>
+
+  <!-- Critical CSS Inline -->
+  <style>
+    /* Critical CSS styles */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { 
+      height: 100%; 
+      width: 100%; 
+      overflow: hidden; 
+      font-family: Arial, sans-serif; 
+      user-select: none; 
+    }
+    /* ... other critical styles ... */
+  </style>
+
+  <!-- Non-Critical CSS Loaded Asynchronously -->
+  <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
+</head> 

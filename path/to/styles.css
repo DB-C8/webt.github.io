@@ -1,0 +1,4 @@
+/* Non-critical CSS styles */
+#loader.hidden { opacity: 0; pointer-events: none; }
+#particle-text { display: none; }
+/* ... rest of your styles ... */ 

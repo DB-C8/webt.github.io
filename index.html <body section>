@@ -1,0 +1,21 @@
+<body>
+  ...
+  <!-- Existing content -->
+
+  <!-- Main Inline Script -->
+  <script>
+    if (window.Worker) {
+      const myWorker = new Worker('worker.js');
+
+      myWorker.postMessage('Start computation');
+
+      myWorker.onmessage = function(e) {
+        console.log('Result from worker:', e.data);
+        // Handle the result
+      }
+    }
+
+    // Rest of your existing inline JavaScript code
+  </script>
+</body>
+</html> 
