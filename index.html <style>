@@ -1,0 +1,18 @@
+/* Existing CSS */
+</style>
+
+<script>
+// Existing disposeParticles method
+disposeParticles() {
+  if (this.particles) {
+    this.scene.remove(this.particles);
+    this.particles.geometry.dispose();
+    this.particles.material.dispose();
+    this.particles = null;
+  }
+  if (this.geometryCopy) {
+    this.geometryCopy.dispose();
+    this.geometryCopy = null;
+  }
+}
+</script> 

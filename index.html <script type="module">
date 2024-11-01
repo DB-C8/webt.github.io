@@ -1,0 +1,9 @@
+<script type="module">
+import { Environment } from './environment.js';
+import { CreateParticles } from './createParticles.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+  const environment = new Environment();
+  // Initialize other components
+});
+</script> 

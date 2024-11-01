@@ -1,0 +1,31 @@
+<script>
+// Dynamically load Three.js when needed
+function loadThreeJS() {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js";
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('Three.js failed to load.'));
+    document.head.appendChild(script);
+  });
+}
+
+// Usage
+loadThreeJS().then(() => {
+  // Initialize Three.js related code
+  preload();
+}).catch(error => {
+  console.error(error);
+});
+
+// Load the name form logic only when the FAB is clicked
+fab.addEventListener('click', async (event) => {
+  if (!window.NameFormModule) {
+    window.NameFormModule = await import('./nameForm.js');
+  }
+  window.NameFormModule.toggleForm();
+});
+
+// Example of passive event listener
+window.addEventListener('scroll', throttle(this.onScroll.bind(this), 200), { passive: true });
+</script> 
