@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="64x64" href="64x64.png">
   <link rel="icon" type="image/png" sizes="96x96" href="96x96.png">
   <link rel="icon" type="image/png" sizes="128x128" href="128x128.png">
-  
+
   <!-- SVG versions for higher-resolution displays -->
   <link rel="icon" type="image/svg+xml" sizes="16x16" href="16x16@2x.svg">
   <link rel="icon" type="image/svg+xml" sizes="32x32" href="32x32@2x.svg">
@@ -22,7 +22,7 @@
   <link rel="icon" type="image/svg+xml" sizes="64x64" href="64x64@2x.svg">
   <link rel="icon" type="image/svg+xml" sizes="96x96" href="96x96@2x.svg">
   <link rel="icon" type="image/svg+xml" sizes="128x128" href="128x128@2x.svg">
-  
+
   <!-- Additional webclip sizes -->
   <link rel="icon" type="image/png" sizes="120x120" href="120x120@2x.png">
   <link rel="icon" type="image/svg+xml" sizes="120x120" href="120x120.svg">
@@ -36,17 +36,6 @@
   <link rel="icon" type="image/svg+xml" sizes="192x192" href="192x192.svg">
   <link rel="icon" type="image/png" sizes="512x512" href="512x512@2x.png">
   <link rel="icon" type="image/svg+xml" sizes="512x512" href="512x512.svg">
-
-  <!-- Add preload for critical resources -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style">
-  <link rel="preload" href="https://threejs.org/examples/fonts/helvetiker_regular.typeface.json" as="fetch" crossorigin>
-  <link rel="preload" href="https://threejs.org/examples/textures/sprites/disc.png" as="image">
-
-  <meta name="description" content="Web610 - Interactive particle text animation">
-  <meta name="theme-color" content="#0A001F">
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-  <link rel="dns-prefetch" href="https://threejs.org">
-  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -325,14 +314,8 @@
     }
   </style>
   
-  <!-- Defer non-critical scripts -->
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://threejs.org">
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js"></script>
 </head>
 <body>
   <a href="https://www.web610.com" id="top-right-button" target="_blank" rel="noopener noreferrer">Web610</a>
@@ -442,7 +425,7 @@
           },
           undefined,
           (err) => {
-            console.error('An error happened loading the font.');
+            console.error('An error occurred while loading the font:', err);
           }
         );
 
@@ -451,12 +434,13 @@
           undefined,
           undefined,
           (err) => {
-            console.error('An error happened loading the particle texture.');
+            console.error('An error occurred while loading the particle texture:', err);
           }
         );
       };
 
-      if (document.readyState === 'complete' || (document.readyState !== 'loading' && !document.documentElement.doScroll)) {
+      if (document.readyState === 'complete' || 
+          (document.readyState !== 'loading' && !document.documentElement.doScroll)) {
         preload();
       } else {
         document.addEventListener('DOMContentLoaded', preload);
@@ -476,9 +460,9 @@
         }
 
         bindEvents() {
-          window.addEventListener('resize', this.onWindowResize.bind(this));
-          window.addEventListener('orientationchange', this.onWindowResize.bind(this));
-          window.addEventListener('fullscreenchange', this.onWindowResize.bind(this));
+          window.addEventListener('resize', debounce(this.onWindowResize.bind(this), 200));
+          window.addEventListener('orientationchange', debounce(this.onWindowResize.bind(this), 200));
+          window.addEventListener('fullscreenchange', debounce(this.onWindowResize.bind(this), 200));
         }
 
         setup() {
@@ -549,8 +533,8 @@
 
           this.data = {
             text: 'WEB610',
-            amount: Math.min(1500, window.innerWidth < 768 ? 1000 : 1500),
-            particleSize: window.innerWidth < 768 ? 0.8 : 1,
+            amount: 1500,
+            particleSize: 1,
             particleColor: 0xffffff,
             textSize: this.getAutoTextSize(),
             area: 100, 
@@ -569,9 +553,6 @@
 
           this.setup();
           this.bindEvents();
-
-          this.particles.frustumCulled = true;
-          this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         }
 
         setup() {
@@ -590,10 +571,14 @@
         }
 
         bindEvents() {
-          document.addEventListener('mousedown', this.onMouseDown.bind(this));
-          document.addEventListener('mousemove', this.onMouseMove.bind(this));
-          document.addEventListener('mouseup', this.onMouseUp.bind(this));
-          window.addEventListener('resize', this.onWindowResize.bind(this));
+          const handleMouseDown = throttle(this.onMouseDown.bind(this), 50);
+          const handleMouseMove = throttle(this.onMouseMove.bind(this), 50);
+          const handleMouseUp = throttle(this.onMouseUp.bind(this), 50);
+
+          document.addEventListener('mousedown', handleMouseDown);
+          document.addEventListener('mousemove', handleMouseMove);
+          document.addEventListener('mouseup', handleMouseUp);
+          window.addEventListener('resize', debounce(this.onWindowResize.bind(this), 200));
         }
 
         getAutoTextSize() {
@@ -742,13 +727,15 @@
 
           const positions = this.particles.geometry.attributes.position;
           const targetPositions = this.geometryCopy.attributes.position;
+          const lerp = THREE.MathUtils.lerp;
 
           for (let i = 0; i < positions.count; i++) {
-            const randomX = (Math.random() - 0.5) * 2 * window.innerWidth;
-            const randomY = (Math.random() - 0.5) * 2 * window.innerHeight;
-            const randomZ = Math.random() * 200 - 100;
-
-            positions.setXYZ(i, randomX, randomY, randomZ);
+            positions.setXYZ(
+              i,
+              (Math.random() - 0.5) * window.innerWidth,
+              (Math.random() - 0.5) * window.innerHeight,
+              Math.random() * 200 - 100
+            );
           }
           positions.needsUpdate = true;
 
@@ -760,19 +747,12 @@
             const progress = Math.min(elapsed / duration, 1);
 
             for (let i = 0; i < positions.count; i++) {
-              const startX = positions.getX(i);
-              const startY = positions.getY(i);
-              const startZ = positions.getZ(i);
-
-              const targetX = targetPositions.getX(i);
-              const targetY = targetPositions.getY(i);
-              const targetZ = targetPositions.getZ(i);
-
-              const currentX = startX + (targetX - startX) * progress;
-              const currentY = startY + (targetY - startY) * progress;
-              const currentZ = startZ + (targetZ - startZ) * progress;
-
-              positions.setXYZ(i, currentX, currentY, currentZ);
+              positions.setXYZ(
+                i,
+                lerp(positions.getX(i), targetPositions.getX(i), progress),
+                lerp(positions.getY(i), targetPositions.getY(i), progress),
+                lerp(positions.getZ(i), targetPositions.getZ(i), progress)
+              );
             }
             positions.needsUpdate = true;
 
@@ -908,7 +888,6 @@
 
             const mx = intersects[0].point.x;
             const my = intersects[0].point.y;
-            const mz = intersects[0].point.z;
 
             for (let i = 0, l = pos.count; i < l; i++) {
               const initX = copy.getX(i);
@@ -983,13 +962,16 @@
                 }
               }
 
-              px += (initX - px) * this.data.ease;
-              py += (initY - py) * this.data.ease;
-              pz += (initZ - pz) * this.data.ease;
+              px = THREE.MathUtils.lerp(px, initX, this.data.ease);
+              py = THREE.MathUtils.lerp(py, initY, this.data.ease);
+              pz = THREE.MathUtils.lerp(pz, initZ, this.data.ease);
 
               pos.setXYZ(i, px, py, pz);
-              pos.needsUpdate = true;
             }
+
+            pos.needsUpdate = true;
+            colors.needsUpdate = true;
+            size.needsUpdate = true;
           }
         }
 
@@ -1015,6 +997,7 @@
       const fab = document.getElementById('fab');
       const nameForm = document.getElementById('name-form');
       const topRightButton = document.getElementById('top-right-button');
+      const footer = document.querySelector('footer');
 
       function showTopRightButton() {
         topRightButton.classList.add('visible');
@@ -1115,6 +1098,10 @@
       const particleText = document.getElementById('particle-text');
       const fab = document.getElementById('fab');
       const topRightButton = document.getElementById('top-right-button');
+      const footer = document.querySelector('footer');
+
+      // Cache elements for future use
+      const nameForm = document.getElementById('name-form');
 
       fab.style.display = 'none';
       topRightButton.style.display = 'none';
@@ -1174,6 +1161,35 @@
       }
     `;
     document.head.appendChild(styleSheet);
+
+    // Utility Function: Debounce
+    function debounce(func, wait, immediate) {
+      let timeout;
+      return function executedFunction(...args) {
+        const context = this;
+        const later = function() {
+          timeout = null;
+          if (!immediate) func.apply(context, args);
+        };
+        const callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+      };
+    }
+
+    // Utility Function: Throttle
+    function throttle(func, limit) {
+      let inThrottle;
+      return function(...args) {
+        const context = this;
+        if (!inThrottle) {
+          func.apply(context, args);
+          inThrottle = true;
+          setTimeout(() => inThrottle = false, limit);
+        }
+      };
+    }
   </script>
 </body>
 </html>
