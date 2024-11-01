@@ -7,44 +7,46 @@
   
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web610 😎</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Favicons for various sizes -->
+  <link rel="icon" type="image/png" sizes="16x16" href="16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="48x48.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="64x64.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="96x96.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="128x128.png">
   
-    <!-- Favicons for various sizes -->
-    <link rel="icon" type="image/png" sizes="16x16" href="16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="32x32.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="48x48.png">
-    <link rel="icon" type="image/png" sizes="64x64" href="64x64.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="96x96.png">
-    <link rel="icon" type="image/png" sizes="128x128" href="128x128.png">
+  <!-- SVG versions for higher-resolution displays -->
+  <link rel="icon" type="image/svg+xml" sizes="16x16" href="16x16@2x.svg">
+  <link rel="icon" type="image/svg+xml" sizes="32x32" href="32x32@2x.svg">
+  <link rel="icon" type="image/svg+xml" sizes="48x48" href="48x48@2x.svg">
+  <link rel="icon" type="image/svg+xml" sizes="64x64" href="64x64@2x.svg">
+  <link rel="icon" type="image/svg+xml" sizes="96x96" href="96x96@2x.svg">
+  <link rel="icon" type="image/svg+xml" sizes="128x128" href="128x128@2x.svg">
   
-    <!-- SVG versions for higher-resolution displays -->
-    <link rel="icon" type="image/svg+xml" sizes="16x16" href="16x16@2x.svg">
-    <link rel="icon" type="image/svg+xml" sizes="32x32" href="32x32@2x.svg">
-    <link rel="icon" type="image/svg+xml" sizes="48x48" href="48x48@2x.svg">
-    <link rel="icon" type="image/svg+xml" sizes="64x64" href="64x64@2x.svg">
-    <link rel="icon" type="image/svg+xml" sizes="96x96" href="96x96@2x.svg">
-    <link rel="icon" type="image/svg+xml" sizes="128x128" href="128x128@2x.svg">
-  
-    <!-- Additional webclip sizes -->
-    <link rel="icon" type="image/png" sizes="120x120" href="120x120@2x.png">
-    <link rel="icon" type="image/svg+xml" sizes="120x120" href="120x120.svg">
-    <link rel="icon" type="image/png" sizes="152x152" href="152x152@2x.png">
-    <link rel="icon" type="image/svg+xml" sizes="152x152" href="152x152.svg">
-    <link rel="icon" type="image/png" sizes="167x167" href="167x167@2x.png">
-    <link rel="icon" type="image/svg+xml" sizes="167x167" href="167x167.svg">
-    <link rel="icon" type="image/png" sizes="180x180" href="180x180@2x.png">
-    <link rel="icon" type="image/svg+xml" sizes="180x180" href="180x180.svg">
-    <link rel="icon" type="image/png" sizes="192x192" href="192x192@2x.png">
-    <link rel="icon" type="image/svg+xml" sizes="192x192" href="192x192.svg">
-    <link rel="icon" type="image/png" sizes="512x512" href="512x512@2x.png">
-    <link rel="icon" type="image/svg+xml" sizes="512x512" href="512x512.svg">
+  <!-- Additional webclip sizes -->
+  <link rel="icon" type="image/png" sizes="120x120" href="120x120@2x.png">
+  <link rel="icon" type="image/svg+xml" sizes="120x120" href="120x120.svg">
+  <link rel="icon" type="image/png" sizes="152x152" href="152x152@2x.png">
+  <link rel="icon" type="image/svg+xml" sizes="152x152" href="152x152.svg">
+  <link rel="icon" type="image/png" sizes="167x167" href="167x167@2x.png">
+  <link rel="icon" type="image/svg+xml" sizes="167x167" href="167x167.svg">
+  <link rel="icon" type="image/png" sizes="180x180" href="180x180@2x.png">
+  <link rel="icon" type="image/svg+xml" sizes="180x180" href="180x180.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="192x192@2x.png">
+  <link rel="icon" type="image/svg+xml" sizes="192x192" href="192x192.svg">
+  <link rel="icon" type="image/png" sizes="512x512" href="512x512@2x.png">
+  <link rel="icon" type="image/svg+xml" sizes="512x512" href="512x512.svg">
+
+  <!-- Add preload for critical resources -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style">
+  <link rel="preload" href="https://threejs.org/examples/fonts/helvetiker_regular.typeface.json" as="fetch" crossorigin>
+  <link rel="preload" href="https://threejs.org/examples/textures/sprites/disc.png" as="image">
+
+  <meta name="description" content="Web610 - Interactive particle text animation">
+  <meta name="theme-color" content="#0A001F">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://threejs.org">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -323,8 +325,14 @@
     }
   </style>
   
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js"></script>
+  <!-- Defer non-critical scripts -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://threejs.org">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 </head>
 <body>
   <a href="https://www.web610.com" id="top-right-button" target="_blank" rel="noopener noreferrer">Web610</a>
@@ -541,8 +549,8 @@
 
           this.data = {
             text: 'WEB610',
-            amount: 1500,
-            particleSize: 1,
+            amount: Math.min(1500, window.innerWidth < 768 ? 1000 : 1500),
+            particleSize: window.innerWidth < 768 ? 0.8 : 1,
             particleColor: 0xffffff,
             textSize: this.getAutoTextSize(),
             area: 100, 
@@ -561,6 +569,9 @@
 
           this.setup();
           this.bindEvents();
+
+          this.particles.frustumCulled = true;
+          this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         }
 
         setup() {
